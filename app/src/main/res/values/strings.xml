@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Currency Converter</string>
+
+    <string name="request_for_data">Convert</string>
+    <string name="retry">Retry</string>
+    <string name="error_while_loading">Error while fetching data…</string>
+    <string name="data_placeholder_string">Placeholder data</string>
+    <string name="fragment_name_list">Data List</string>
+    <string name="fragment_name_details">Details</string>
+    <string name="from_label">FROM</string>
+    <string name="to_label">TO</string>
+    <string name="et_hint">Enter amount to convert</string>
+    <string name="result">Result</string>
+
+    <string-array name="currency_array">
+        <item>EUR</item>
+        <item>USD</item>
+        <item>CHF</item>
+        <item>YEN</item>
+    </string-array>
+</resources>
