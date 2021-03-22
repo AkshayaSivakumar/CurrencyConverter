@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.currency_array,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.simple_spinner_item)
             // Apply the adapter to the spinner
             binding.fromSpinner.adapter = adapter
         }
@@ -57,10 +57,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.currency_array,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.simple_spinner_item)
             // Apply the adapter to the spinner
             binding.toSpinner.adapter = adapter
         }
@@ -104,12 +104,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(
-        adapterView: AdapterView<*>?,
+        parent: AdapterView<*>,
         view: View?,
         position: Int,
         id: Long
     ) {
-        println("Item selected $id $position")
+        println("CC Item selected $id $position ${parent.getItemAtPosition(position)}")
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

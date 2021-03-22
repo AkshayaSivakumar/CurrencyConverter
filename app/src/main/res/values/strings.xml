@@ -13,6 +13,7 @@
     <string name="result">Result</string>
 
     <string-array name="currency_array">
+        <item>Select</item>
         <item>EUR</item>
         <item>USD</item>
         <item>CHF</item>
