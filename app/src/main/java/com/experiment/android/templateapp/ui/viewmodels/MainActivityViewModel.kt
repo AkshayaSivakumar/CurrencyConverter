@@ -32,11 +32,11 @@ class MainActivityViewModel @Inject constructor(
     }
 
 
-    fun getDataFromRemote(from: String, to: String) {
-        getData(from, to)
+    fun convertCurrency(from: String, to: String) {
+        getMultiplierData(from, to)
     }
 
-    private fun getData(from: String, to: String) {
+    private fun getMultiplierData(from: String, to: String) {
         viewModelScope.launch {
             when (val response = dataRepository.getData(from, to)) {
                 is ResultHandler.Error -> {
@@ -51,7 +51,8 @@ class MainActivityViewModel @Inject constructor(
                 is ResultHandler.Success -> {
                     val result = response.data
                     Timber.d(result.toString())
-                    val convertedCurrency = convertCurrency(currencyValue, result.multiplier)
+                    val convertedCurrency =
+                        convertCurrency(currencyValue, result.multiplier)
                     Timber.d("Converted Value $convertedCurrency")
                     _state.postValue(ViewState.ShowData(convertedCurrency))
                 }

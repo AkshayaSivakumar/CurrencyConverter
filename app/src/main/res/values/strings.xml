@@ -11,6 +11,7 @@
     <string name="to_label">TO</string>
     <string name="et_hint">Enter amount to convert</string>
     <string name="result">Result</string>
+    <string name="select">Select</string>
 
     <string-array name="currency_array">
         <item>Select</item>

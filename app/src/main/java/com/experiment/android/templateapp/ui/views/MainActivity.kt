@@ -28,19 +28,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setupBinding()
         setSupportActionBar(binding.toolbar)
 
-        setupViews()
-
-        sendRequest()
+        setupSpinners()
 
         observeViewState()
 
     }
 
-    private fun setupViews() {
-
-        val value = binding.etAmountToConvert.text.toString()
-        if (!value.isNullOrBlank())
-            mainActivityViewModel.setCurrencyValue(value.toDouble())
+    private fun setupSpinners() {
 
         ArrayAdapter.createFromResource(
             this,
@@ -67,15 +61,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         binding.fromSpinner.onItemSelectedListener = this
         binding.toSpinner.onItemSelectedListener = this
 
+        //TODO("Implement error handling when currency value to convert is null or empty or 0")
+
     }
 
     /**
      * Method to send request on send request button clicked
      */
-    private fun sendRequest() {
-        binding.btnSendRequest.setOnClickListener {
-            mainActivityViewModel.getDataFromRemote(fromItem, toItem)
-        }
+    fun sendRequest(view: View) {
+        val value = binding.etAmountToConvert.text.toString()
+        if (!value.isNullOrBlank())
+            mainActivityViewModel.setCurrencyValue(value.toDouble())
+
+        mainActivityViewModel.convertCurrency(fromItem, toItem)
     }
 
     private fun setupBinding() {
@@ -84,13 +82,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun observeViewState() {
         mainActivityViewModel.state.observe(this, Observer { state ->
-            when (state) {
-                is ViewState.ShowData -> {
-                    showData(state.data)
-                }
-                is ViewState.ShowError -> {
-                    showError(state.error)
-                }
+            if (state is ViewState.ShowData) {
+                showData(state.data)
+            } else if (state is ViewState.ShowError) {
+                showError(state.error)
             }
         })
     }
@@ -109,11 +104,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         position: Int,
         id: Long
     ) {
-        println("CC Item selected $id $position ${parent.getItemAtPosition(position)}")
+        if (R.id.from_spinner == parent.id) {
+            if (getString(R.string.select) != parent.getItemAtPosition(position))
+                fromItem = parent.getItemAtPosition(position).toString()
+        } else if (R.id.to_spinner == parent.id) {
+            if (getString(R.string.select) != parent.getItemAtPosition(position))
+                toItem = parent.getItemAtPosition(position).toString()
+            //TODO("Implement error handling when 1st and 2nd spinner item are same")
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
-
 }
